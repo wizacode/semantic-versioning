@@ -2,7 +2,7 @@
     "name": "wizaplace/semantic-versioning",
     "description": "Domain objects to manage semantic versioning",
     "type": "library",
-    "license": "MIT License",
+    "license": "MIT",
     "authors": [
         {
             "name": "Cédric Bertolini",
