@@ -33,4 +33,10 @@ class VersionFactoryTest extends TestCase
     {
         $this->assertEquals(new Version(1, 2, 4), VersionFactory::nextPatch(new Version(1, 2, 3)));
     }
+
+    public function testFromStringEmpty()
+    {
+        $this->expectException(RuntimeException::class);
+        VersionFactory::fromString('');
+    }
 }

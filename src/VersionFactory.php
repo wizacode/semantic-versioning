@@ -32,7 +32,7 @@ class VersionFactory
             self::REGEXP_DOT_SEPARATED_IDENTIFIERS
         );
 
-        if (false === preg_match($regexp, $versionString, $matches, PREG_UNMATCHED_AS_NULL)) {
+        if (1 !== preg_match($regexp, $versionString, $matches, PREG_UNMATCHED_AS_NULL)) {
             throw new \RuntimeException('Version string does not follow semantic versioning: ' . $versionString);
         }
 
