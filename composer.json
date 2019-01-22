@@ -1,0 +1,25 @@
+{
+    "name": "wizaplace/semantic-versioning",
+    "description": "Domain objects to manage semantic versioning",
+    "type": "library",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Cédric Bertolini",
+            "email": "cedric@wizaplace.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "phpstan/phpstan": "^0.11.1",
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wizaplace\\SemanticVersioning\\": "src/"
+        }
+    }
+}
