@@ -16,7 +16,7 @@ test: unit ## (PHP) Launch all test tools
 
 unit: vendor/bin ## (PHP) Unit tests
 	@echo
-	./vendor/bin/phpunit
+	./vendor/bin/phpunit --coverage-text --coverage-html var/coverage-report
 
 vendor/bin:
 	@echo
