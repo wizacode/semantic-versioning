@@ -79,6 +79,7 @@ class VersionTest extends TestCase
         $this->assertEquals(-1, (new Version(2, 0, 0))->compareTo(new Version(2, 1, 0)));
         $this->assertEquals(-1, (new Version(2, 1, 0))->compareTo(new Version(2, 1, 1)));
         $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0)));
+        $this->assertEquals(0, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha')));
         $this->assertEquals(1, (new Version(1, 0, 0))->compareTo(new Version(1, 0, 0, 'alpha')));
         $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha.1')));
         $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha.1'))->compareTo(new Version(1, 0, 0, 'alpha.beta')));
