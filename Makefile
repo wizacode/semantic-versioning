@@ -10,7 +10,7 @@ fix: vendor/bin ## (PHP) Code style fixer
 
 stan: vendor/bin ## (PHP) Static analysis
 	@echo
-	./vendor/bin/phpstan analyse -l 7 src
+	./vendor/bin/phpstan analyse -l max src
 
 test: unit ## (PHP) Launch all test tools
 
