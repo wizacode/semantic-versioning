@@ -36,7 +36,9 @@ class VersionFactory
             throw new \RuntimeException('Version string does not follow semantic versioning: ' . $versionString);
         }
 
-        return new Version(intval($matches[1]), intval($matches[2]), intval($matches[3]), $matches[4] ?? null, $matches[5] ?? null);
+        array_shift($matches);
+
+        return new Version(intval($matches[0]), intval($matches[1]), intval($matches[2]), $matches[3] ?? null, $matches[4] ?? null);
     }
 
     /**
