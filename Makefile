@@ -22,6 +22,10 @@ coverage: vendor/bin
 	@echo
 	php -d pcov.enabled=1 vendor/bin/phpunit  --whitelist src --coverage-html var/coverage-report
 
+infection: vendor/bin
+	@echo
+	./vendor/bin/infection
+
 vendor/bin:
 	@echo
 	composer install
