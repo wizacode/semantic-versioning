@@ -18,6 +18,10 @@ unit: vendor/bin ## (PHP) Unit tests
 	@echo
 	./vendor/bin/phpunit --coverage-text --coverage-html var/coverage-report
 
+infection: vendor/bin
+	@echo
+	./vendor/bin/infection
+
 vendor/bin:
 	@echo
 	composer install
