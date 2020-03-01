@@ -143,7 +143,7 @@ class Version
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getPrereleaseIdentifiers(): array
     {
@@ -159,7 +159,7 @@ class Version
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getBuildIdentifiers(): array
     {

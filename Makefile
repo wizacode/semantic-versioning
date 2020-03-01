@@ -18,6 +18,10 @@ unit: vendor/bin ## (PHP) Unit tests
 	@echo
 	./vendor/bin/phpunit
 
+coverage: vendor/bin
+	@echo
+	php -d pcov.enabled=1 vendor/bin/phpunit  --whitelist src --coverage-html var/coverage-report
+
 vendor/bin:
 	@echo
 	composer install
