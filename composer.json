@@ -6,8 +6,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
         "phpstan/phpstan": "^0.12",
-        "phpunit/phpunit": "^8.0",
-        "infection/infection": "^0.15.3"
+        "phpunit/phpunit": "^8.0"
     },
     "license": "MIT",
     "authors": [
@@ -18,7 +17,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.2.9"
+        "php": ">=7.4"
     },
     "autoload": {
         "psr-4": {
