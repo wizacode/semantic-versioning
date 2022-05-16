@@ -14,40 +14,16 @@ namespace Wizaplace\SemanticVersioning;
  */
 class Version
 {
-    /**
-     * @var int
-     */
-    private $major;
+    private int $major;
 
-    /**
-     * @var int
-     */
-    private $minor;
+    private int $minor;
 
-    /**
-     * @var int
-     */
-    private $patch;
+    private int $patch;
 
-    /**
-     * @var string|null
-     */
-    private $prerelease;
+    private ?string $prerelease;
 
-    /**
-     * @var string|null
-     */
-    private $build;
+    private ?string $build;
 
-    /**
-     * Version constructor.
-     *
-     * @param int $major
-     * @param int $minor
-     * @param int $patch
-     * @param string|null $prerelease
-     * @param string|null $build
-     */
     public function __construct(int $major, int $minor, int $patch, ?string $prerelease = null, ?string $build = null)
     {
         $this->major = $major;
@@ -91,52 +67,42 @@ class Version
             return $this->patch <=> $value->patch;
         }
 
-        if (null === $this->prerelease or null === $value->prerelease) {
-            if (null === $this->prerelease and null === $value->prerelease) {
+        if (null === $this->prerelease || null === $value->prerelease) {
+            if (null === $this->prerelease && null === $value->prerelease) {
                 return 0;
             }
 
             return null === $this->prerelease ? 1 : -1;
         }
 
-        $comparison = array_filter(array_map(function ($a, $b): int {
-            if (is_numeric($a) && is_numeric($b)) {
-                return intval($a) <=> intval($b);
-            }
+        $comparison = \array_filter(
+            \array_map(function ($a, $b): int {
+                if (\is_numeric($a) && \is_numeric($b)) {
+                    return \intval($a) <=> \intval($b);
+                }
 
-            return $a <=> $b;
-        }, $this->getPrereleaseIdentifiers(), $value->getPrereleaseIdentifiers()));
+                return $a <=> $b;
+            }, $this->getPrereleaseIdentifiers(), $value->getPrereleaseIdentifiers())
+        );
 
-        return empty($comparison) ? 0 : reset($comparison);
+        return empty($comparison) ? 0 : \reset($comparison);
     }
 
-    /**
-     * @return int
-     */
     public function getMajor(): int
     {
         return $this->major;
     }
 
-    /**
-     * @return int
-     */
     public function getMinor(): int
     {
         return $this->minor;
     }
 
-    /**
-     * @return int
-     */
     public function getPatch(): int
     {
         return $this->patch;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPrerelease(): ?string
     {
         return $this->prerelease;
@@ -147,12 +113,9 @@ class Version
      */
     public function getPrereleaseIdentifiers(): array
     {
-        return $this->prerelease ? explode('.', $this->prerelease) : [];
+        return $this->prerelease ? \explode('.', $this->prerelease) : [];
     }
 
-    /**
-     * @return string|null
-     */
     public function getBuild(): ?string
     {
         return $this->build;
@@ -163,6 +126,6 @@ class Version
      */
     public function getBuildIdentifiers(): array
     {
-        return $this->build ? explode('.', $this->build) : [];
+        return $this->build ? \explode('.', $this->build) : [];
     }
 }
