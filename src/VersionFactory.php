@@ -14,16 +14,12 @@ namespace Wizaplace\SemanticVersioning;
  */
 class VersionFactory
 {
-    const REGEXP_INTEGER = '(\d+)';
-    const REGEXP_DOT_SEPARATED_IDENTIFIERS = '([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)';
+    public const REGEXP_INTEGER = '(\d+)';
+    public const REGEXP_DOT_SEPARATED_IDENTIFIERS = '([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)';
 
-    /**
-     * @param string $versionString
-     * @return Version
-     */
     public static function fromString(string $versionString): Version
     {
-        $regexp = sprintf(
+        $regexp = \sprintf(
             '/^%s\.%s\.%s(?:\-%s)?(?:\+%s)?$/',
             self::REGEXP_INTEGER,
             self::REGEXP_INTEGER,
@@ -32,35 +28,31 @@ class VersionFactory
             self::REGEXP_DOT_SEPARATED_IDENTIFIERS
         );
 
-        if (1 !== preg_match($regexp, $versionString, $matches, PREG_UNMATCHED_AS_NULL)) {
+        if (1 !== \preg_match($regexp, $versionString, $matches, PREG_UNMATCHED_AS_NULL)) {
             throw new \RuntimeException('Version string does not follow semantic versioning: ' . $versionString);
         }
 
-        array_shift($matches);
+        \array_shift($matches);
 
-        return new Version(intval($matches[0]), intval($matches[1]), intval($matches[2]), $matches[3] ?? null, $matches[4] ?? null);
+        return new Version(
+            \intval($matches[0]),
+            \intval($matches[1]),
+            \intval($matches[2]),
+            $matches[3] ?? null,
+            $matches[4] ?? null
+        );
     }
 
-    /**
-     * @param Version $version
-     * @return Version
-     */
     public static function nextMajor(Version $version): Version
     {
         return new Version($version->getMajor() + 1, 0, 0);
     }
-    /**
-     * @param Version $version
-     * @return Version
-     */
+
     public static function nextMinor(Version $version): Version
     {
         return new Version($version->getMajor(), $version->getMinor() + 1, 0);
     }
-    /**
-     * @param Version $version
-     * @return Version
-     */
+
     public static function nextPatch(Version $version): Version
     {
         return new Version($version->getMajor(), $version->getMinor(), $version->getPatch() + 1);

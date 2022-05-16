@@ -13,81 +13,81 @@ class VersionTest extends TestCase
     public function testVersion()
     {
         $version = new Version(1, 2, 3);
-        $this->assertSame(1, $version->getMajor());
-        $this->assertSame(2, $version->getMinor());
-        $this->assertSame(3, $version->getPatch());
-        $this->assertNull($version->getPrerelease());
-        $this->assertSame([], $version->getPrereleaseIdentifiers());
-        $this->assertNull($version->getBuild());
-        $this->assertSame([], $version->getBuildIdentifiers());
-        $this->assertSame('1.2.3', $version->toString());
+        static::assertSame(1, $version->getMajor());
+        static::assertSame(2, $version->getMinor());
+        static::assertSame(3, $version->getPatch());
+        static::assertNull($version->getPrerelease());
+        static::assertSame([], $version->getPrereleaseIdentifiers());
+        static::assertNull($version->getBuild());
+        static::assertSame([], $version->getBuildIdentifiers());
+        static::assertSame('1.2.3', $version->toString());
     }
 
     public function testVersionPreRelease()
     {
         $version = new Version(1, 0, 0, 'alpha.1');
-        $this->assertSame(1, $version->getMajor());
-        $this->assertSame(0, $version->getMinor());
-        $this->assertSame(0, $version->getPatch());
-        $this->assertSame('alpha.1', $version->getPrerelease());
-        $this->assertSame(['alpha', '1'], $version->getPrereleaseIdentifiers());
-        $this->assertSame('1.0.0-alpha.1', $version->toString());
+        static::assertSame(1, $version->getMajor());
+        static::assertSame(0, $version->getMinor());
+        static::assertSame(0, $version->getPatch());
+        static::assertSame('alpha.1', $version->getPrerelease());
+        static::assertSame(['alpha', '1'], $version->getPrereleaseIdentifiers());
+        static::assertSame('1.0.0-alpha.1', $version->toString());
     }
 
     public function testVersionBuild()
     {
         $version = new Version(1, 0, 0, null, '20130313144700');
-        $this->assertSame(1, $version->getMajor());
-        $this->assertSame(0, $version->getMinor());
-        $this->assertSame(0, $version->getPatch());
-        $this->assertNull($version->getPrerelease());
-        $this->assertSame([], $version->getPrereleaseIdentifiers());
-        $this->assertSame('20130313144700', $version->getBuild());
-        $this->assertSame(['20130313144700'], $version->getBuildIdentifiers());
-        $this->assertSame('1.0.0+20130313144700', $version->toString());
+        static::assertSame(1, $version->getMajor());
+        static::assertSame(0, $version->getMinor());
+        static::assertSame(0, $version->getPatch());
+        static::assertNull($version->getPrerelease());
+        static::assertSame([], $version->getPrereleaseIdentifiers());
+        static::assertSame('20130313144700', $version->getBuild());
+        static::assertSame(['20130313144700'], $version->getBuildIdentifiers());
+        static::assertSame('1.0.0+20130313144700', $version->toString());
     }
 
     public function testVersionPrereleaseBuild()
     {
         $version = new Version(1, 0, 0, 'beta', 'exp.sha.5114f85');
-        $this->assertSame(1, $version->getMajor());
-        $this->assertSame(0, $version->getMinor());
-        $this->assertSame(0, $version->getPatch());
-        $this->assertSame('beta', $version->getPrerelease());
-        $this->assertSame(['beta'], $version->getPrereleaseIdentifiers());
-        $this->assertSame('exp.sha.5114f85', $version->getBuild());
-        $this->assertSame(['exp', 'sha', '5114f85'], $version->getBuildIdentifiers());
-        $this->assertSame('1.0.0-beta+exp.sha.5114f85', $version->toString());
+        static::assertSame(1, $version->getMajor());
+        static::assertSame(0, $version->getMinor());
+        static::assertSame(0, $version->getPatch());
+        static::assertSame('beta', $version->getPrerelease());
+        static::assertSame(['beta'], $version->getPrereleaseIdentifiers());
+        static::assertSame('exp.sha.5114f85', $version->getBuild());
+        static::assertSame(['exp', 'sha', '5114f85'], $version->getBuildIdentifiers());
+        static::assertSame('1.0.0-beta+exp.sha.5114f85', $version->toString());
     }
 
     public function testVersionEmptyString()
     {
         $version = new Version(1, 0, 0, '', '');
-        $this->assertSame(1, $version->getMajor());
-        $this->assertSame(0, $version->getMinor());
-        $this->assertSame(0, $version->getPatch());
-        $this->assertNull($version->getPrerelease());
-        $this->assertSame([], $version->getPrereleaseIdentifiers());
-        $this->assertNull($version->getBuild());
-        $this->assertSame([], $version->getBuildIdentifiers());
-        $this->assertSame('1.0.0', $version->toString());
+        static::assertSame(1, $version->getMajor());
+        static::assertSame(0, $version->getMinor());
+        static::assertSame(0, $version->getPatch());
+        static::assertNull($version->getPrerelease());
+        static::assertSame([], $version->getPrereleaseIdentifiers());
+        static::assertNull($version->getBuild());
+        static::assertSame([], $version->getBuildIdentifiers());
+        static::assertSame('1.0.0', $version->toString());
     }
 
     public function testCompareTo()
     {
-        $this->assertEquals(-1, (new Version(1, 0, 0))->compareTo(new Version(2, 0, 0)));
-        $this->assertEquals(-1, (new Version(2, 0, 0))->compareTo(new Version(2, 1, 0)));
-        $this->assertEquals(-1, (new Version(2, 1, 0))->compareTo(new Version(2, 1, 1)));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0)));
-        $this->assertEquals(0, (new Version(1, 0, 0))->compareTo(new Version(1, 0, 0)));
-        $this->assertEquals(0, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha')));
-        $this->assertEquals(1, (new Version(1, 0, 0))->compareTo(new Version(1, 0, 0, 'alpha')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha.1')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha.1'))->compareTo(new Version(1, 0, 0, 'alpha.beta')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'alpha.beta'))->compareTo(new Version(1, 0, 0, 'beta')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'beta'))->compareTo(new Version(1, 0, 0, 'beta.2')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'beta.2'))->compareTo(new Version(1, 0, 0, 'beta.11')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'beta.11'))->compareTo(new Version(1, 0, 0, 'rc.1')));
-        $this->assertEquals(-1, (new Version(1, 0, 0, 'rc.1'))->compareTo(new Version(1, 0, 0)));
+        static::assertEquals(-1, (new Version(1, 0, 0))->compareTo(new Version(2, 0, 0)));
+        static::assertEquals(-1, (new Version(2, 0, 0))->compareTo(new Version(2, 1, 0)));
+        static::assertEquals(-1, (new Version(2, 1, 0))->compareTo(new Version(2, 1, 1)));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0)));
+        static::assertEquals(0, (new Version(1, 0, 0))->compareTo(new Version(1, 0, 0)));
+        static::assertEquals(0, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha')));
+        static::assertEquals(1, (new Version(1, 0, 0))->compareTo(new Version(1, 0, 0, 'alpha')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'alpha'))->compareTo(new Version(1, 0, 0, 'alpha.1')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'alpha.1'))->compareTo(new Version(1, 0, 0, 'alpha.beta')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'alpha.beta'))->compareTo(new Version(1, 0, 0, 'beta')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'beta'))->compareTo(new Version(1, 0, 0, 'beta.2')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'beta.2'))->compareTo(new Version(1, 0, 0, 'beta.11')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'beta.11'))->compareTo(new Version(1, 0, 0, 'rc.1')));
+        static::assertEquals(-1, (new Version(1, 0, 0, 'rc.1'))->compareTo(new Version(1, 0, 0)));
     }
 }
